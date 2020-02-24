@@ -12,7 +12,7 @@ class TodoInput extends Component{
                                 <i className="fa fa-book"></i>
                             </div>
                         </div>
-                        <input type="text" 
+                        <input type="text" required
                             className="form-control text-capitalize" 
                             placeholder="addItem"
                             value={item}
