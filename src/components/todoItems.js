@@ -1,15 +1,15 @@
 import React , {Component} from 'react'
 
 class TodoItem extends Component{
-    render(){
-        const {title ,handleDelete ,handleEdit} = this.props
+    render(props){
+        const {title,type,date,time,handleDelete} = this.props
         return(
             <li className="list-group-item text-capitalize d-flex justify-content-between my-2" >
-               <h6>{title}</h6>
+               <h4>{title}</h4>
+               <h6>{type}</h6>
+               <p><strong>{time}</strong></p>
+               <p><strong>{date}</strong></p>
                <div className="todo-icon">
-                    <span className="mx-2 text-primary" onClick={handleEdit}>
-                        <i className="fa fa-car"></i>
-                    </span>
                     <span className="mx-2 text-danger" onClick={handleDelete}>
                         <i className="fa fa-trash"></i>
                     </span>

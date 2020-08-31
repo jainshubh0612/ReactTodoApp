@@ -4,15 +4,18 @@ import uuid from 'uuid'
 
 import TodoInput from './components/todoInput'
 import TodoList from './components/todoList'
-// import TodoItem from './components/todoItems'
+
 class App extends Component{
   constructor(){
     super()
     this.state={
       items : [],
-      id:uuid(),
       item:'',
-      editItem:false
+      type:'',
+      date:'',
+      time:'',
+      id:uuid(),
+      
     }
   }
 
@@ -22,13 +25,36 @@ handleChange = (e) => {
     })
   }
 
+  handleTypeChange = (e) => {
+    this.setState({
+      type:e.target.value
+    })
+  }
+
+  handleDateChange = (e) => {
+    this.setState({
+      date:e.target.value
+    })
+  }
+
+  handleTimeChange = (e) => {
+    // console.log(e.target.value)
+    this.setState({
+      time:e.target.value
+    })
+    // console.log(this.state.time)
+  }
+
 handleSubmit = (e) => {
   e.preventDefault();
 
     const newItem ={
       id:this.state.id,
-      title:this.state.item
-    }
+      title:this.state.item,
+      type:this.state.type,
+      date:this.state.date,
+      time:this.state.time
+     }
 
     const updatedItems = [...this.state.items,newItem]
   
@@ -36,7 +62,9 @@ handleSubmit = (e) => {
       items:updatedItems,
       item:"",
       id:uuid(),
-      editItem:false
+      date:'',
+      type:'',
+      time:''
     })
 }
 
@@ -56,41 +84,30 @@ handleDelete = (id) => {
     })
 }
 
-handleEdit = (id) =>{
-  const filteredItems = this.state.items.filter((item)=>
-            item.id !== id
-  )
 
-  const selectedItem = this.state.items.find(item =>
-      item.id === id
-     )
-
-  this.setState({
-    items:filteredItems,
-    item:selectedItem.title,
-    editItem:true,
-    id:id
-  })
-}
-
+  
   render(){
     return (
+     
       <div className="container">
-        <h1 className="text capitalized text-center">Todo App</h1>
+        <h2 className="text capitalized text-center"><i>Event Scheduling App</i></h2>
         <div className="row">
           <div className="col col-10 mx-auto col-md-8 mt-4">
-              <h3 className="text-capitalized text-center">Todo Input</h3>
               <TodoInput 
-                item={this.state.item}  
+                item={this.state.item}
+                type = {this.state.type}
+                date={this.state.date}  
+                time={this.state.time}
                 handleChange={this.handleChange}
+                handleTypeChange={this.handleTypeChange}
+                handleDateChange={this.handleDateChange}
+                handleTimeChange={this.handleTimeChange}
                 handleSubmit={this.handleSubmit}
-                editItem={this.state.editItem}
                 />
 
               <TodoList items={this.state.items}
                 clearList={this.clearList}
                 handleDelete ={this.handleDelete}
-                handleEdit = {this.handleEdit}
               />
           
           </div>
